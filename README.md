@@ -1,0 +1,1 @@
+Use jsQR from cozmo - [https://github.com/cozmo/jsQR]
