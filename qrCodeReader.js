@@ -77,6 +77,7 @@ class QrCodeReader {
     }
     
     _tick() {
+        console.log(1);
         if (this.video.readyState === this.video.HAVE_ENOUGH_DATA && this.scanning) {
             this.canvas.width = this.video.videoWidth;
             this.canvas.height = this.video.videoheight;
