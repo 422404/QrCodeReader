@@ -51,7 +51,7 @@ class QrCodeReader {
         navigator.mediaDevices.getUserMedia(
             {
                 video: {
-                    facingMode: "environment"
+                    facingMode: side
                 }
             }
         ).then(function (stream) 
