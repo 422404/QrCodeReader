@@ -47,6 +47,7 @@ class QrCodeReader {
         this.ui.appendChild(this.canvas);
         document.body.appendChild(this.ui);
         
+        var that = this;
         navigator.mediaDevices.getUserMedia(
             {
                 video: {
@@ -59,7 +60,7 @@ class QrCodeReader {
             this.video.play();
             this.scanning = true;
             requestAnimationFrame(this._tick);
-        }).bind(this));
+        }).bind(that));
     }
     
     show(mustShow) {
@@ -86,6 +87,7 @@ class QrCodeReader {
             var code = jsQR(imageData.data, imageData.width, imageData.height);
             if (code) {
                 alert(code.data);
+                this.scanning = false;
             }
         }
         requestAnimationFrame(this._tick);
