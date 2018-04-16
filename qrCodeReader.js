@@ -78,7 +78,7 @@ class QrCodeReader {
     }
     
     _tick() {
-        if (video.readyState === video.HAVE_ENOUGH_DATA && this.scanning) {
+        if (this.video.readyState === this.video.HAVE_ENOUGH_DATA && this.scanning) {
             this.canvas.width = this.video.videoWidth;
             this.canvas.height = this.video.videoheight;
             this.canvas.drawImage(this.video, 0, 0, canvas.width, canvas.height);
