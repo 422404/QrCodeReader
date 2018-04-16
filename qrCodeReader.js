@@ -47,24 +47,19 @@ class QrCodeReader {
         this.ui.appendChild(this.canvas);
         document.body.appendChild(this.ui);
         
-        var initVideo = function (stream) 
-            this.video.srcObject = stream;
-            this.video.setAttribute("playsinline", true); // required to tell iOS safari we don't want fullscreen
-            this.video.play();
-            this.scanning = true;
-            requestAnimationFrame(this._tick);
-        };
-        
+        var that = this;
         navigator.mediaDevices.getUserMedia(
             {
                 video: {
-                    facingMode: {
-                        exact: "environment"
-                    }
+                    facingMode: "environment"
                 }
             }
-        ).then((stream) => {
-            console.log('ah !'); initVideo();
+        ).then(function (stream) 
+            that.video.srcObject = stream;
+            that.video.setAttribute("playsinline", true); // required to tell iOS safari we don't want fullscreen
+            that.video.play();
+            that.scanning = true;
+            requestAnimationFrame(that._tick);
         });
     }
     
