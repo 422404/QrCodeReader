@@ -60,7 +60,7 @@ class QrCodeReader {
             this.video.play();
             this.scanning = true;
             requestAnimationFrame(this._tick);
-        }).bind(that));
+        }).bind(null, that));
     }
     
     show(mustShow) {
@@ -77,20 +77,20 @@ class QrCodeReader {
         this.ui.remove();
     }
     
-    _tick() {
+    _tick(that, timestamp) {
         console.log(1);
-        if (this.video.readyState === this.video.HAVE_ENOUGH_DATA && this.scanning) {
-            this.canvas.width = this.video.videoWidth;
-            this.canvas.height = this.video.videoheight;
-            this.canvas.drawImage(this.video, 0, 0, canvas.width, canvas.height);
+        if (that.video.readyState === that.video.HAVE_ENOUGH_DATA && that.scanning) {
+            that.canvas.width = that.video.videoWidth;
+            that.canvas.height = that.video.videoheight;
+            that.canvas.drawImage(that.video, 0, 0, canvas.width, canvas.height);
             var imageData = context2d.getImageData(0, 0, canvas.width, canvas.height);
             var code = jsQR(imageData.data, imageData.width, imageData.height);
             if (code) {
                 alert(code.data);
-                this.scanning = false;
+                that.scanning = false;
             }
         }
-        requestAnimationFrame(this._tick);
+        requestAnimationFrame(that._tick);
     }
 }
 
