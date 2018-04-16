@@ -51,6 +51,7 @@ class QrCodeReader {
             this.video.srcObject = stream;
             this.video.setAttribute("playsinline", true); // required to tell iOS safari we don't want fullscreen
             this.video.play();
+            this.scanning = true;
             requestAnimationFrame(this._tick);
         };
         
