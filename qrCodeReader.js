@@ -47,12 +47,12 @@ class QrCodeReader {
         this.ui.appendChild(this.canvas);
         document.body.appendChild(this.ui);
         
-        var initVideo = (function (stream) {
+        var initVideo = function (stream) {
             this.video.srcObject = stream;
             this.video.setAttribute("playsinline", true); // required to tell iOS safari we don't want fullscreen
             this.video.play();
             requestAnimationFrame(this._tick);
-        }).bind(this);
+        };
         
         navigator.mediaDevices.getUserMedia(
             {
