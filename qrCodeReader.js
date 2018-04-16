@@ -90,7 +90,7 @@ class QrCodeReader {
                 this.scanning = false;
             }
         }
-        requestAnimationFrame(this._tick);
+        requestAnimationFrame(this._tick.bind(this));
     }
 }
 
