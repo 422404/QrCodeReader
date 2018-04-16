@@ -59,8 +59,8 @@ class QrCodeReader {
             this.video.setAttribute("playsinline", true); // required to tell iOS safari we don't want fullscreen
             this.video.play();
             this.scanning = true;
-            requestAnimationFrame(this._tick);
-        }).bind(null, that));
+            requestAnimationFrame(this._tick.bind(this));
+        }).bind(this));
     }
     
     show(mustShow) {
@@ -77,20 +77,20 @@ class QrCodeReader {
         this.ui.remove();
     }
     
-    _tick(that, timestamp) {
+    _tick(timestamp) {
         console.log(1);
-        if (that.video.readyState === that.video.HAVE_ENOUGH_DATA && that.scanning) {
-            that.canvas.width = that.video.videoWidth;
-            that.canvas.height = that.video.videoheight;
-            that.canvas.drawImage(that.video, 0, 0, canvas.width, canvas.height);
-            var imageData = context2d.getImageData(0, 0, canvas.width, canvas.height);
+        if (this.video.readyState === this.video.HAVE_ENOUGH_DATA && this.scanning) {
+            this.canvas.width = this.video.videoWidth;
+            this.canvas.height = this.video.videoheight;
+            this.canvas.drawImage(this.video, 0, 0, this.canvas.width, this.canvas.height);
+            var imageData = context2d.getImageData(0, 0, this.canvas.width, this.canvas.height);
             var code = jsQR(imageData.data, imageData.width, imageData.height);
             if (code) {
                 alert(code.data);
-                that.scanning = false;
+                this.scanning = false;
             }
         }
-        requestAnimationFrame(that._tick);
+        requestAnimationFrame(this._tick);
     }
 }
 
