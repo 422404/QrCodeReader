@@ -65,8 +65,15 @@ class QrCodeReader {
     }
     
     show(mustShow) {
-        if (mustShow || arguments.length == 0) this.ui.style.top = '0px';
-        else this.ui.style.top = this.outOfBound + 'px';
+        if (mustShow || arguments.length == 0) {
+            this.ui.style.top = '0px';
+            this.scanning = true;
+            requestAnimationFrame(this._tick.bind(this));
+        }
+        else {
+            this.ui.style.top = this.outOfBound + 'px';
+            this.scanning = false;
+        }
     }
     
     destroy() {
@@ -86,11 +93,12 @@ class QrCodeReader {
             var imageData = this.context2d.getImageData(0, 0, this.canvas.width, this.canvas.height);
             var code = jsQR(imageData.data, imageData.width, imageData.height);
             if (code) {
-                alert(code.data);
-                this.scanning = false;
+                console.log(code.data);
+                //alert(code.data);
+                //this.scanning = false;
             }
+            requestAnimationFrame(this._tick.bind(this));
         }
-        requestAnimationFrame(this._tick.bind(this));
     }
 }
 
