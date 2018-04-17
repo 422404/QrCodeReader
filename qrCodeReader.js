@@ -68,7 +68,6 @@ class QrCodeReader {
         if (mustShow || arguments.length == 0) {
             this.ui.style.top = '0px';
             this.scanning = true;
-            requestAnimationFrame(this._tick.bind(this));
         }
         else {
             this.ui.style.top = this.outOfBound + 'px';
@@ -97,8 +96,8 @@ class QrCodeReader {
                 //alert(code.data);
                 //this.scanning = false;
             }
-            requestAnimationFrame(this._tick.bind(this));
         }
+        requestAnimationFrame(this._tick.bind(this));
     }
 }
 
