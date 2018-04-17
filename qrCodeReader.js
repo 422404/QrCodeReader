@@ -93,8 +93,10 @@ class QrCodeReader {
             var code = jsQR(imageData.data, imageData.width, imageData.height);
             if (code) {
                 console.log(code.data);
-                //alert(code.data);
-                //this.scanning = false;
+                var obj = JSON.parse(code.data);
+                if (obj.magic === 'PRODUCT_REF') {
+                    alert('Product : ' + obj.productName, 'Ref : ' + obj.ref);
+                }
             }
         }
         requestAnimationFrame(this._tick.bind(this));
