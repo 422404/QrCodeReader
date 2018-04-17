@@ -84,7 +84,7 @@ class QrCodeReader {
         if (this.video.readyState === this.video.HAVE_ENOUGH_DATA && this.scanning) {
             this.canvas.width = this.video.videoWidth;
             this.canvas.height = this.video.videoheight;
-            this.canvas.drawImage(this.video, 0, 0, this.canvas.width, this.canvas.height);
+            this.context2d.drawImage(this.video, 0, 0, this.canvas.width, this.canvas.height);
             var imageData = this.context2d.getImageData(0, 0, this.canvas.width, this.canvas.height);
             var code = jsQR(imageData.data, imageData.width, imageData.height);
             if (code) {
