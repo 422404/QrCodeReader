@@ -96,7 +96,7 @@ class QrCodeReader {
                 try {
                     var obj = JSON.parse(code.data);
                     if (obj.magic === 'PRODUCT_REF') {
-                        alert('Product : ' + obj.productName, 'Ref : ' + obj.ref);
+                        alert('Product : ' + obj.productName + "\nRef : " + obj.ref);
                     }
                 } catch (e) {}
             }
