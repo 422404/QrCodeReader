@@ -104,5 +104,5 @@ class QrCodeReader {
 }
 
 var a = new QrCodeReader;
-a.createView('front');
+a.createView('back');
 a.show(true);
