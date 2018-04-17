@@ -47,24 +47,26 @@ class QrCodeReader {
         this.ui.appendChild(this.canvas);
         document.body.appendChild(this.ui);
         
-        var that = this;
+        var usermediaCallback = function (stream) {
+            this.video.srcObject = stream;
+            this.video.setAttribute("playsinline", true); // required to tell iOS safari we don't want fullscreen
+            this.video.play();
+            this.scanning = true;
+            debugger;
+            requestAnimationFrame(this._tick.bind(this));
+        }
+        
         navigator.mediaDevices.getUserMedia(
             {
                 video: {
                     facingMode: side
                 }
             }
-        ).then((function (stream) {
-            this.video.srcObject = stream;
-            this.video.setAttribute("playsinline", true); // required to tell iOS safari we don't want fullscreen
-            this.video.play();
-            this.scanning = true;
-            requestAnimationFrame(this._tick.bind(this));
-        }).bind(this));
+        ).then(usermediaCallback.bind(this));
     }
     
     show(mustShow) {
-        if (mustShow) this.ui.style.top = '0px';
+        if (mustShow || arguments.length == 0) this.ui.style.top = '0px';
         else this.ui.style.top = this.outOfBound + 'px';
     }
     
@@ -77,13 +79,13 @@ class QrCodeReader {
         this.ui.remove();
     }
     
-    _tick(timestamp) {
-        console.log(1);
+    _tick() {
+        debugger;
         if (this.video.readyState === this.video.HAVE_ENOUGH_DATA && this.scanning) {
             this.canvas.width = this.video.videoWidth;
             this.canvas.height = this.video.videoheight;
             this.canvas.drawImage(this.video, 0, 0, this.canvas.width, this.canvas.height);
-            var imageData = context2d.getImageData(0, 0, this.canvas.width, this.canvas.height);
+            var imageData = this.context2d.getImageData(0, 0, this.canvas.width, this.canvas.height);
             var code = jsQR(imageData.data, imageData.width, imageData.height);
             if (code) {
                 alert(code.data);
@@ -96,3 +98,4 @@ class QrCodeReader {
 
 var a = new QrCodeReader;
 a.createView('front');
+a.show(true);
