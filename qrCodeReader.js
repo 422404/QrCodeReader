@@ -36,13 +36,13 @@ class QrCodeReader {
         this.ui.style.position = 'fixed';
         this.ui.style.top = this.outOfBound + 'px';
         this.ui.style.left = '0px';
-        // this.ui.style.animationDuration = '0.5s'
         this.ui.style.zIndex = '9999';
         
         this.canvas.style.maxWidth = '80%';
         this.canvas.style.maxHeight = '80%';
         this.canvas.style.margin = '10px auto';
         this.canvas.style.borderRadius = '10px';
+        this.canvas.style.display = 'block';
         
         this.ui.appendChild(this.canvas);
         document.body.appendChild(this.ui);
